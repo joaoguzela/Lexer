@@ -1,0 +1,15 @@
+program "HelloMiniLogo"
+:var;
+begin
+print "movendo para frente";
+:var 10;
+forward :var;
+print "iniciando loop";
+if 9 + 9 
+repeat 3 do
+begin
+turn 90 degrees;
+forward :var
+end;
+print "fim"
+end
