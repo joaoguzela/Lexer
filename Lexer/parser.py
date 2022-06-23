@@ -47,6 +47,7 @@ class Parser():
       if(self.eat(Tag.KW_PROGRAM)):
          if(not self.eat(Tag.LITERAL)):
             self.sinalizaErroSintatico("Esperado \"um LITERAL\", encontrado " + "\"" + self.token.getLexema() + "\"")
+            sys.exit(0)
          self.Decl()
          self.Block()
          if(self.token.getNome() != Tag.EOF):
