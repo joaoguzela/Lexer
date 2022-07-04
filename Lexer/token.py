@@ -2,11 +2,12 @@ class Token:
    '''
    Classe que representa um token
    '''
-   def __init__(self, nome, lexema, linha=0, coluna=0):
+   def __init__(self, nome, lexema, linha=0, coluna=0, tipo=None):
       self.nome = nome
       self.lexema = lexema
       self.linha = linha
       self.coluna = coluna
+      self.tipo = tipo
 
    def getNome(self):
       return self.nome
@@ -25,6 +26,12 @@ class Token:
 
    def setColuna(self, coluna):
       self.coluna = coluna
+   
+   def getTipo(self):
+      return self.tipo
+
+   def setTipo(self, tipo):
+      self.tipo = tipo
 
    def toString(self):
       return "<" + str(self.nome.name) + ", \"" + str(self.lexema) + "\">"

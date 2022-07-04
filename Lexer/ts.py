@@ -27,3 +27,11 @@ class TS:
    def printTS(self):
       for k, t in self.ts.items():
          print(k, ":", t.toString())
+   
+   def setTipo(self, tipo):
+      self.setTipo(tipo)
+  
+   def getTipo(self):
+      tipo = self.getTipo()
+      return tipo
+

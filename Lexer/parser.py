@@ -4,7 +4,7 @@ import copy
 from tag import Tag
 from token import Token
 from lexer import Lexer
-
+from ts import TS
 '''
 [TODO-OPC-1]: 
 tratar retorno 'None' do Lexer que esta sem Modo Panico
@@ -55,11 +55,14 @@ class Parser():
       
 
    def Decl(self):
+      
       if(self.eat(Tag.SMB_DOIS_PONTOS)):
          # ‘:’id ‘;’ Decl | ε
+         aux = self.token
          if(not self.eat(Tag.ID)):
             self.sinalizaErroSintatico("Esperado \"ID\", encontrado " + "\"" + self.token.getLexema() + "\""+" Decl não deve começar com um numeral")
             sys.exit(0)
+         TS.setTipo(aux, 'NUM')
          if(not self.eat(Tag.SMB_PONTO_VIRGULA)):
             self.sinalizaErroSintatico("Esperado \"';'\", encontrado " + "\"" + self.token.getLexema() + "\"")
             sys.exit(0)
@@ -115,8 +118,12 @@ class Parser():
       
    def AssignmentStatement(self):
       # ‘:’id Expr
+      aux = self.token
       if(not self.eat(Tag.ID)):
          self.sinalizaErroSintatico("Esperado \"ID\", encontrado " + "\"" + self.token.getLexema() + "\"")
+         sys.exit(0)
+      if(TS.getTipo(aux) != 'NUM'):
+         self.sinalizaErroSintatico("ID não declarado" + "\"" + self.token.getLexema() + "\"")
          sys.exit(0)
       self.Expr()
 
@@ -160,6 +167,10 @@ class Parser():
           if(not self.eat(Tag.SMB_DOIS_PONTOS)):
             self.sinalizaErroSintatico("Esperado \":\", encontrado "  + "\"" + self.token.getLexema() + "\"")
             sys.exit(0)
+          aux = self.token
           if(not self.eat(Tag.ID)):
             self.sinalizaErroSintatico("Esperado \"num, id\", encontrado "  + "\"" + self.token.getLexema() + "\"")
+            sys.exit(0)
+          if(TS.getTipo(aux) != 'NUM'):
+            self.sinalizaErroSintatico("ID não declarado" + "\"" + self.token.getLexema() + "\"")
             sys.exit(0)
